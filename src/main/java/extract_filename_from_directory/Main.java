@@ -9,7 +9,8 @@ public class Main {
         String pdf = "D:\\Java面试系统复习\\数据结构  C语言版  第2版.pdf";
         String csv = "H:\\Java数据科学\\testCSV.csv";
         String tsv = "H:\\Java数据科学\\testTSV.tsv";
-        String pom = "H:\\Java数据科学\\pom.xml";
+        String pom = "H:\\Java数据科学\\testXML.xml";
+        String json = "H:\\Java数据科学\\testJSON.json";
 
         //1.Java的文件提取方法
         //new Main().method1(path);
@@ -36,7 +37,10 @@ public class Main {
         //new Main().method8(tsv);
 
         //9.JDOM解析XML文件
-        new Main().method9(pom);
+        //new Main().method9(pom);
+
+        //10.JDOM解析XML文件
+        new Main().method10(json);
     }
 
     void method1(String path){
@@ -70,5 +74,8 @@ public class Main {
     }
     void method9(String fileName){
         MyFileUtil.parseXML(fileName);
+    }
+    void method10(String fileName){
+        MyFileUtil.writeJson(fileName);
     }
 }

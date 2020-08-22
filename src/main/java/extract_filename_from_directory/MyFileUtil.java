@@ -16,12 +16,11 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.xml.sax.SAXException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.nio.file.Paths;
@@ -206,16 +205,40 @@ public class MyFileUtil {
             Document document = builder.build(file);
             //创建根元素
             Element rootNode = document.getRootElement();
-            List list = rootNode.getChildren("dependencies");
+            List list = rootNode.getChildren("author");
             for(int i = 0; i < list.size(); i++){
                 Element node = (Element) list.get(i);
                 //获取子元素的文本内容
                 System.out.println("First Name : " +
-                        node.getChild("dependency").getChildText("version"));
+                        node.getChildText("firstname"));
             }
         }catch (IOException e){
             e.printStackTrace();
         }catch (JDOMException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 使用JSON-simple编写Json文件
+     * @param outFileName
+     */
+    public static void writeJson(String outFileName){
+        //创建Json数据
+        JSONObject object = new JSONObject();
+        object.put("book", "《Java数据科学》");
+        object.put("author", "chocho");
+        JSONArray list = new JSONArray();
+        list.add("书评1");
+        list.add("书评2");
+        list.add("书评3");
+        object.put("messages", list);
+
+        //输出文件
+        try(FileWriter file = new FileWriter(outFileName)) {
+            file.write(object.toJSONString());
+            file.flush();
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
