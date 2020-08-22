@@ -18,6 +18,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 
 import java.io.*;
@@ -242,4 +244,29 @@ public class MyFileUtil {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 使用JSON-simple读取Json文件
+     * @param fileName
+     */
+    public static void readJson(String fileName){
+        JSONParser parser = new JSONParser();
+        try{
+            JSONObject object = (JSONObject)parser.parse(new FileReader(fileName));
+            String book = (String)object.get("book");
+            String author = (String)object.get("author");
+            JSONArray messages = (JSONArray)object.get("messages");
+            System.out.println("book=" + book);
+            System.out.println("author=" + author);
+            messages.forEach(System.out::println);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void 
 }

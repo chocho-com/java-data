@@ -40,7 +40,10 @@ public class Main {
         //new Main().method9(pom);
 
         //10.JDOM解析XML文件
-        new Main().method10(json);
+        //new Main().method10(json);
+
+        //11.JDOM解析XML文件
+        new Main().method11(json);
     }
 
     void method1(String path){
@@ -77,5 +80,8 @@ public class Main {
     }
     void method10(String fileName){
         MyFileUtil.writeJson(fileName);
+    }
+    void method11(String fileName){
+        MyFileUtil.readJson(fileName);
     }
 }
