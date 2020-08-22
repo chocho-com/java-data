@@ -22,6 +22,9 @@ public class Main {
 
         //5.Apache Tika 提取PDF文件内容
         new Main().method5(file);
+
+        //6.正则表达式清洗文本
+        new Main().method6(file);
     }
 
     void method1(String path){
@@ -40,8 +43,11 @@ public class Main {
     void method4(String file){
         System.out.println(MyFileUtil.getFileStreamCommons(file));
     }
-
     void method5(String fileName){
         System.out.println(MyFileUtil.convertPDF(fileName).length());
+    }
+    void method6(String fileName){
+        String text = MyFileUtil.getFileStreamCommons(fileName);
+        System.out.println(MyFileUtil.cleanText(text));
     }
 }

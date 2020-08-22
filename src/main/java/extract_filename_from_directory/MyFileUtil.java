@@ -119,9 +119,24 @@ public class MyFileUtil {
     }
 
     //--------------清洗文件---------------------
+
+    /**
+     *使用正则表达式清洗ASCII文本文件
+     * @param text
+     * @return
+     */
     public static String cleanText(String text){
         //去掉ASCII字符
-        
-        return null;
+        text = text.replaceAll("[^p{ASCII}]", "");
+        //将空格合并为一个空格
+        text = text.replaceAll("s+", "");
+        //清除ASCII控制字符
+        text = text.replaceAll("p\\{Cntrl}", "");
+        //去除ASCII非打印字符
+        text = text.replaceAll("[^p{Print}]", "");
+        //移除Unicode非打印字符
+        text = text.replaceAll("p\\{C}", "");
+
+        return text;
     }
 }
