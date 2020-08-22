@@ -9,6 +9,7 @@ public class Main {
         String pdf = "D:\\Java面试系统复习\\数据结构  C语言版  第2版.pdf";
         String csv = "H:\\Java数据科学\\testCSV.csv";
         String tsv = "H:\\Java数据科学\\testTSV.tsv";
+        String pom = "H:\\Java数据科学\\pom.xml";
 
         //1.Java的文件提取方法
         //new Main().method1(path);
@@ -31,8 +32,11 @@ public class Main {
         //7.Unicocity解析CSV文件
         //new Main().method7(csv);
 
-        //7.Unicocity解析TSV文件
-        new Main().method8(tsv);
+        //8.Unicocity解析TSV文件
+        //new Main().method8(tsv);
+
+        //9.JDOM解析XML文件
+        new Main().method9(pom);
     }
 
     void method1(String path){
@@ -63,5 +67,8 @@ public class Main {
     }
     void method8(String fileName){
         MyFileUtil.parseTSV(fileName);
+    }
+    void method9(String fileName){
+        MyFileUtil.parseXML(fileName);
     }
 }

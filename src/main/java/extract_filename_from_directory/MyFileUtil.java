@@ -12,6 +12,10 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.sax.BodyContentHandler;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -188,6 +192,31 @@ public class MyFileUtil {
         List<String[]> allRows = parser.parseAll(new File(fileName));
         for(int i = 0; i < allRows.size(); i++) {
             System.out.println(Arrays.asList(allRows.get(i)));
+        }
+    }
+
+    /**
+     * 使用JDOM解析XML文件
+     * @param fileName
+     */
+    public static void parseXML(String fileName){
+        SAXBuilder builder = new SAXBuilder();
+        File file = new File(fileName);
+        try {
+            Document document = builder.build(file);
+            //创建根元素
+            Element rootNode = document.getRootElement();
+            List list = rootNode.getChildren("dependencies");
+            for(int i = 0; i < list.size(); i++){
+                Element node = (Element) list.get(i);
+                //获取子元素的文本内容
+                System.out.println("First Name : " +
+                        node.getChild("dependency").getChildText("version"));
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (JDOMException e){
+            e.printStackTrace();
         }
     }
 }
