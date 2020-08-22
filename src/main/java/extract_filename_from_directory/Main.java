@@ -11,6 +11,7 @@ public class Main {
         String tsv = "H:\\Java数据科学\\testTSV.tsv";
         String pom = "H:\\Java数据科学\\testXML.xml";
         String json = "H:\\Java数据科学\\testJSON.json";
+        String url = "https://www.cuit.edu.cn/";
 
         //1.Java的文件提取方法
         //new Main().method1(path);
@@ -43,7 +44,10 @@ public class Main {
         //new Main().method10(json);
 
         //11.JDOM解析XML文件
-        new Main().method11(json);
+        //new Main().method11(json);
+
+        //12.jsoup解析url数据
+        new Main().method12(url);
     }
 
     void method1(String path){
@@ -83,5 +87,8 @@ public class Main {
     }
     void method11(String fileName){
         MyFileUtil.readJson(fileName);
+    }
+    void method12(String url){
+        MyFileUtil.extractDataWithJsoup(url);
     }
 }

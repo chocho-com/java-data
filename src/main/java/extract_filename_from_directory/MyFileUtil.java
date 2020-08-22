@@ -20,6 +20,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.xml.sax.SAXException;
 
 import java.io.*;
@@ -268,5 +270,43 @@ public class MyFileUtil {
         }
     }
 
-    public static void 
+    /**
+     * 使用Jsoup从URL中提取Web数据
+     * @param url
+     */
+    public static void extractDataWithJsoup(String url){
+        org.jsoup.nodes.Document doc = null;
+        try {
+            doc = Jsoup.connect(url)  //链接url
+                    .timeout(10 * 1000)          //超时设置
+                    .userAgent("chocho")       //用户代理名称
+                    .ignoreHttpErrors(true)    //忽略链接错误
+                    .get();                    //获取
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+        if(doc != null){
+            //标题
+            String title = doc.title();
+            //正文
+            String text = doc.body().text();
+            System.out.println("title=" + title);
+            System.out.println("text=" + text);
+
+            //超链接
+            Elements links = doc.select("a[href]");
+            //处理链接
+            for(org.jsoup.nodes.Element link : links){
+                String linkHref = link.attr("href");
+                String linkText = link.text();
+                String linkOuterHtml = link.outerHtml();
+                String linkInnerHtml = link.html();
+                System.out.println(linkHref + "t" + linkText + "t" +
+                        linkOuterHtml + "t" + linkInnerHtml);
+            }
+        }
+    }
 }
