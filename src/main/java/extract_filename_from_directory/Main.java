@@ -8,6 +8,7 @@ public class Main {
         String file = "E:\\记做ssm项目踩过的坑\\关于sql模糊查询的坑.txt";
         String pdf = "D:\\Java面试系统复习\\数据结构  C语言版  第2版.pdf";
         String csv = "H:\\Java数据科学\\testCSV.csv";
+        String tsv = "H:\\Java数据科学\\testTSV.tsv";
 
         //1.Java的文件提取方法
         //new Main().method1(path);
@@ -28,7 +29,10 @@ public class Main {
         //new Main().method6(file);
 
         //7.Unicocity解析CSV文件
-        new Main().method7(csv);
+        //new Main().method7(csv);
+
+        //7.Unicocity解析TSV文件
+        new Main().method8(tsv);
     }
 
     void method1(String path){
@@ -56,5 +60,8 @@ public class Main {
     }
     void method7(String fileName){
         MyFileUtil.parseCSV(fileName);
+    }
+    void method8(String fileName){
+        MyFileUtil.parseTSV(fileName);
     }
 }

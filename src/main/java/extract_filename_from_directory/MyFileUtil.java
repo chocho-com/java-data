@@ -3,6 +3,8 @@ package extract_filename_from_directory;
 import com.univocity.parsers.common.processor.RowListProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
+import com.univocity.parsers.tsv.TsvParser;
+import com.univocity.parsers.tsv.TsvParserSettings;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.tika.exception.TikaException;
@@ -172,5 +174,20 @@ public class MyFileUtil {
         }
     }
 
-    
+    /**
+     * 使用Univocity解析TSV文件
+     * * .tsv以TAB为数据分隔符
+     * @param fileName
+     */
+    public static void parseTSV(String fileName){
+        TsvParserSettings settings = new TsvParserSettings();
+        //行分隔符 \n或者n
+        settings.getFormat().setLineSeparator("\n");
+        TsvParser parser = new TsvParser(settings);
+        //解析tsv文件
+        List<String[]> allRows = parser.parseAll(new File(fileName));
+        for(int i = 0; i < allRows.size(); i++) {
+            System.out.println(Arrays.asList(allRows.get(i)));
+        }
+    }
 }
