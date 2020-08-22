@@ -1,5 +1,8 @@
 package extract_filename_from_directory;
 
+import com.univocity.parsers.common.processor.RowListProcessor;
+import com.univocity.parsers.csv.CsvParser;
+import com.univocity.parsers.csv.CsvParserSettings;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.tika.exception.TikaException;
@@ -14,7 +17,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.Arrays;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
@@ -139,4 +142,35 @@ public class MyFileUtil {
 
         return text;
     }
+
+    /**
+     * 使用Univocity解析CSV文件
+     * .csv以逗号为数据分隔符
+     * @param fileName
+     */
+    public static void parseCSV(String fileName){
+        //配置对象
+        CsvParserSettings parserSettings = new CsvParserSettings();
+        //开启解析器自动检查功能，自动侦测包含何种行分隔符序列
+        parserSettings.setLineSeparatorDetectionEnabled(true);
+
+        RowListProcessor rowProcessor = new RowListProcessor();
+        parserSettings.setRowProcessor(rowProcessor);
+        //将第一解析行作为每个列的标题
+        parserSettings.setHeaderExtractionEnabled(true);
+        CsvParser parser = new CsvParser(parserSettings);
+        //解析
+        parser.parse(new File(fileName));
+        String headers[] = rowProcessor.getHeaders();
+        for(String h : headers){
+            System.out.print(h + " ");
+        }
+        System.out.println();
+        List<String[]> rows = rowProcessor.getRows();
+        for(int i = 0; i < rows.size(); i++){
+            System.out.println(Arrays.asList(rows.get(i)));
+        }
+    }
+
+    
 }

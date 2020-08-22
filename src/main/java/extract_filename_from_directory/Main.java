@@ -7,6 +7,7 @@ public class Main {
         String path = "H:\\Java数据科学\\files";
         String file = "E:\\记做ssm项目踩过的坑\\关于sql模糊查询的坑.txt";
         String pdf = "D:\\Java面试系统复习\\数据结构  C语言版  第2版.pdf";
+        String csv = "H:\\Java数据科学\\testCSV.csv";
 
         //1.Java的文件提取方法
         //new Main().method1(path);
@@ -21,10 +22,13 @@ public class Main {
         //new Main().method4(file);
 
         //5.Apache Tika 提取PDF文件内容
-        new Main().method5(file);
+        //new Main().method5(file);
 
         //6.正则表达式清洗文本
-        new Main().method6(file);
+        //new Main().method6(file);
+
+        //7.Unicocity解析CSV文件
+        new Main().method7(csv);
     }
 
     void method1(String path){
@@ -49,5 +53,8 @@ public class Main {
     void method6(String fileName){
         String text = MyFileUtil.getFileStreamCommons(fileName);
         System.out.println(MyFileUtil.cleanText(text));
+    }
+    void method7(String fileName){
+        MyFileUtil.parseCSV(fileName);
     }
 }
